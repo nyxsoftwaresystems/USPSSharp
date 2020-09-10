@@ -94,18 +94,25 @@ namespace USPSSharp
         private Uri FormatAPIUri(string apiPath, string apiName, string rootAPIObject, string XMLbody)
         {
             //Format the final XML
-            StringBuilder finalXML = new StringBuilder();
-            XmlWriter xmlWriter = XmlWriter.Create(finalXML);
+            StringBuilder xmlSB = new StringBuilder();
+            //xmlSB.Append($"<{rootAPIObject} UserID=\"{_userId}\">");
+            //xmlSB.Append(XMLbody);
+            //xmlSB.Append($"</{rootAPIObject}>");
+
+            XmlWriter xmlWriter = XmlWriter.Create(xmlSB);
             xmlWriter.WriteStartDocument();
             xmlWriter.WriteStartElement(rootAPIObject);
-            xmlWriter.WriteAttributeString("UserID", _userId);
-            finalXML.Append(XMLbody);
+            xmlWriter.WriteAttributeString("USERID", _userId);
+            xmlWriter.WriteRaw(XMLbody);
+            xmlWriter.WriteEndElement(); //</{rootApiObject}>
             xmlWriter.WriteEndDocument();
             xmlWriter.Close();
 
+            string xml = xmlSB.ToString();
+
             //Now create the final Uri and return.
             StringBuilder sb = new StringBuilder();
-            return new Uri(sb.Append($"{BASE_API_URL}/{apiPath}?API={apiName}&XML=").Append(finalXML.ToString()).ToString());
+            return new Uri(sb.Append($"{BASE_API_URL}/{apiPath}?API={apiName}&XML=").Append(xml).ToString());
         }
     }
 }
