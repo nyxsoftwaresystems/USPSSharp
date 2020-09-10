@@ -6,17 +6,23 @@ using System.Xml.Linq;
 
 namespace USPSSharp.Models
 {
-    public class AddressVerificationResponse : Address
-    {
+	public class AddressVerificationResponse : Address
+	{
 		/// <summary>
 		/// Prevent instantiation. Objects of this type must be created through the parse static method.
 		/// </summary>
-		private AddressVerificationResponse() {}
+		protected AddressVerificationResponse() { }
+
+		public string Error { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
+		public string ErrorNumber { get; set; }
 
 		/// <summary>
 		/// 
 		/// </summary>
-		public string Error { get; set; }
+		public string ErrorDescription { get; set; }
 
 		/// <summary>
 		/// 
@@ -82,26 +88,26 @@ namespace USPSSharp.Models
 			return (from addressElement in addressVerificationResponseElement.Elements("Address")
 					select new AddressVerificationResponse
 					{
-						Id = Int32.Parse(addressElement.Attribute("Id")?.Value),
+						Id = Int32.Parse(addressElement.Attribute("ID")?.Value),
 						Address1 = addressElement.Element("Address1")?.Value,
 						Address2 = addressElement.Element("Address1")?.Value,
-						Business = Boolean.Parse(addressElement.Element("Business")?.Value),
-						CarrierRoute = addressElement.Element("CarrierRoute")?.Value,
-						CentralDeliveryPoint = Boolean.Parse(addressElement.Element("CentralDeliveryPoint")?.Value),
-						City = addressElement.Element("City")?.Value,
-						CityAbbreviation = addressElement.Element("CityAbbreviation")?.Value,
-						DeliveryPoint = addressElement.Element("DeliveryPoint")?.Value,
-						DPVCMRA = Boolean.Parse(addressElement.Element("DPVCMRA")?.Value),
-						DPVConfirmation = Boolean.Parse(addressElement.Element("DPVConfirmation")?.Value),
-						DPVFootnotes = addressElement.Element("DPVFootnotes")?.Value,
-						Error = addressElement.Element("Error")?.Value,
-						FirmName = addressElement.Element("FirmName")?.Value,
-						Footnotes = Boolean.Parse(addressElement.Element("Footnotes")?.Value),
-						State = addressElement.Element("State")?.Value,
-						Urbanization = addressElement.Element("Urbanization")?.Value,
-						Vacant = Boolean.Parse(addressElement.Element("Vacant")?.Value),
-						Zip4 = addressElement.Element("Zip4")?.Value,
-						Zip5 = addressElement.Element("Zip5")?.Value,
+                        Business = addressElement.Element("Business")?.Value.Equals("Y"),
+                        CarrierRoute = addressElement.Element("CarrierRoute")?.Value,
+                        CentralDeliveryPoint = addressElement.Element("CentralDeliveryPoint")?.Value.Equals("Y"),
+                        City = addressElement.Element("City")?.Value,
+                        CityAbbreviation = addressElement.Element("CityAbbreviation")?.Value,
+                        DeliveryPoint = addressElement.Element("DeliveryPoint")?.Value,
+                        DPVCMRA = addressElement.Element("DPVCMRA")?.Value.Equals("Y"),
+                        DPVConfirmation = addressElement.Element("DPVConfirmation")?.Value.Equals("Y"),
+                        DPVFootnotes = addressElement.Element("DPVFootnotes")?.Value,
+                        Error = addressElement.Element("Error")?.Value,
+                        FirmName = addressElement.Element("FirmName")?.Value,
+                        Footnotes = addressElement.Element("Footnotes")?.Value.Equals("Y"),
+                        State = addressElement.Element("State")?.Value,
+                        Urbanization = addressElement.Element("Urbanization")?.Value,
+                        Vacant = addressElement.Element("Vacant")?.Value.Equals("Y"),
+                        Zip4 = addressElement.Element("Zip4")?.Value,
+						Zip5 = addressElement.Element("Zip5")?.Value
 					}).ToList();
 
 		}

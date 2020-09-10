@@ -54,8 +54,11 @@ namespace USPSSharp.Models
 
         public override string ToString()
         {
+            XmlWriterSettings settings = new XmlWriterSettings {
+                OmitXmlDeclaration = true
+            };
             StringBuilder sb = new StringBuilder();
-            XmlWriter xmlWriter = XmlWriter.Create(sb);
+            XmlWriter xmlWriter = XmlWriter.Create(sb, settings);
 
             xmlWriter.WriteStartDocument();
             xmlWriter.WriteStartElement("Address"); // <Address ID=X>
@@ -93,7 +96,7 @@ namespace USPSSharp.Models
             xmlWriter.WriteString(Zip4);
             xmlWriter.WriteEndElement();
 
-            //xmlWriter.WriteEndElement(); // </Address>
+            xmlWriter.WriteEndElement(); // </Address>
             xmlWriter.WriteEndDocument();
             xmlWriter.Close();
 
