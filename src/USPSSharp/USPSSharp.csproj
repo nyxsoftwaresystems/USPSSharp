@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageId>NyxSoftwareSystems.USPSSharp</PackageId>
+    <Authors>Raul Ruiz</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/nyxsoftwaresystems/USPSSharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/nyxsoftwaresystems/USPSSharp</RepositoryUrl>
+    <Description>A wrapper for the USPS API.</Description>
+    <PackageTags>usps, wrapper, api</PackageTags>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+
+</Project>
